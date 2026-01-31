@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface MenuItem {
   texto: string;
@@ -8,8 +8,8 @@ interface MenuItem {
 
 
 @Component({
-  selector: 'app-side-menu-component',
-  imports: [RouterLink],
+  selector: 'app-side-menu',
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './side-menu-component.html',
 })
 export class SideMenuComponent {
