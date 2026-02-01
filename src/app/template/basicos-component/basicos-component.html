@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col">
 
-        <form autocomplete="off">
-            
+        <form (ngSubmit)="save(myForm)" #myForm="ngForm" autocomplete="off">
+
             <!-- Campo de producto -->
             <div class="mb-3 row">
 
@@ -14,14 +14,16 @@
 
 
                 <div class="col-sm-9">
-                    
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Nombre del producto">
 
-                    <span class="form-text text-danger">
-                        Debe de ser de 3 letras
-                    </span>
+                    <input type="text" class="form-control" placeholder="Nombre del producto" name="producto" required
+                        minlength="3" ngModel>
+                    <!-- @if (myForm.controls['producto']?.invalid && myForm.controls['producto']?.touched) { -->
+                     @if (notValidField('producto')) {
+
+                        <span class="form-text text-danger">
+                            Debe de ser de 3 letras
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -35,28 +37,32 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Precio</label>
                 <div class="col-sm-9">
-                    <input type="number"
-                           class="form-control"
-                           placeholder="Precio del producto"
-                           required>
+                    <input type="number" class="form-control" placeholder="Precio del producto" name="precio" required ngModel (input)="notValidPrice()">
                 </div>
+                @if (notValidField('precio')) {
+                    <span class="form-text text-danger">
+                        El precio es obligatorio y debe ser mayor a 0
+                    </span>
+                }
             </div>
 
             <!-- Campo de existencias -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Existencias</label>
                 <div class="col-sm-9">
-                    <input type="number"
-                           class="form-control"
-                           placeholder="Existencias del producto">
+                    <input type="number" class="form-control" placeholder="Existencias del producto" name="existencias" min="1" required ngModel>
                 </div>
+                @if (notValidField('existencias')) {
+                    <span class="form-text text-danger">
+                        La existencias son obligatorias y debe ser mayor a 0
+                    </span>
+                }
             </div>
 
 
             <div class="row">
                 <div class="col">
-                    <button type="submit"
-                            class="btn btn-primary float-end">
+                    <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary float-end">
                         Guardar
                     </button>
                 </div>
@@ -66,5 +72,29 @@
 
         </form>
 
+        <div class="row">
+            <div class="col">
+                <span>Valid</span>
+                <!-- Indica si el formulario es válido -->
+                <pre>{{ myForm.valid }}</pre>
+
+                <span>Pristine</span>
+                <!-- Indica si el formulario está en el estado inicial -->
+                <pre>{{ myForm.pristine }}</pre>
+
+                <span>Touched</span>
+                <!-- Indica si el formulario ha sido tocado, es decir
+            si se ha tocado alguno de los campos -->
+                <pre>{{ myForm.touched }}</pre>
+
+                <span>Value</span>
+                <pre>{{ myForm.value | json }}</pre>
+
+                <span>Errores en existencias</span>
+                <!-- Para poder utilizar el pipe json, hay que importarlo en el 
+            componente JSONPipe -->
+                <pre>{{ myForm.controls['precio']?.errors | json }}</pre>
+            </div>
+        </div>
     </div>
 </div>
