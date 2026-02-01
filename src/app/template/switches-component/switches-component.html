@@ -2,7 +2,7 @@
 <hr>
 
 
-<form autocomplete="off">
+<form (ngSubmit)="submit()" #myForm="ngForm" autocomplete="off">
 
     <!-- Radio -->
     <div class="row mb-3">
@@ -13,7 +13,11 @@
                 <input class="form-check-input"
                        type="radio"
                        value="M"
-                       id="radioMasculino">
+                       id="radioMasculino"
+                       name="genre"
+                       [(ngModel)]="person.genre"
+                       required
+                       >
                 <label class="form-check-label" for="radioMasculino">
                   Masculino
                 </label>
@@ -23,7 +27,11 @@
                 <input class="form-check-input"
                        type="radio"
                        value="F"
-                       id="radioFemenino">
+                       id="radioFemenino"
+                       name="genre"
+                       [(ngModel)]="person.genre"
+                       required
+                       >
                 <label class="form-check-label" for="radioFemenino">
                   Femenino
                 </label>
@@ -40,7 +48,9 @@
             <div class="form-check form-switch mt-2">
                 <input class="form-check-input"
                        type="checkbox"
-                       id="flexSwitchCheckChecked">
+                       id="flexSwitchCheckChecked"
+                       [(ngModel)]="person.notifications"
+                       name="notifications">
                 <label class="form-check-label" for="flexSwitchCheckChecked">Quiero recibir notificaciones</label>
             </div>
 
@@ -54,7 +64,11 @@
             <div class="form-check">
                 <input class="form-check-input"
                        type="checkbox"
-                       id="flexCheckDefault">
+                       id="flexCheckDefault"
+                       name="terms"
+                       [(ngModel)]="terms"
+                       required
+                       >
                 <label class="form-check-label" for="flexCheckDefault">
                   Términos y condiciones de uso
                 </label>
@@ -66,10 +80,16 @@
     <!-- Boton submit -->
     <div class="row">
         <div class="col">
-            <button class="btn btn-primary float-end">
+            <button class="btn btn-primary float-end" [disabled]="!myForm.valid">
                 Guardar
             </button>
         </div>
     </div>
+
+    <p> Valid: {{myForm.valid}} </p>
+
+    <swal #swalSuccess title="Éxito!" text="Formulario guardado correctamente!" icon="success"></swal>
+    <swal #confirmDialog title="¿Estás seguro?" text="Se va a enviar el formulario" icon="question" [showCancelButton]="true" confirmButtonText="Sí, enviar" cancelButtonText="Cancelar"></swal>
+
 
 </form>

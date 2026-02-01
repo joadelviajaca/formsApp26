@@ -3,6 +3,11 @@ export interface Persona {
 	favoritos: Favorito[]
 }
 
+export interface PersonaS {
+    genre: string;
+    notifications: boolean;
+}
+
 export interface Favorito{
 	id: number;
 	nombre: string;
