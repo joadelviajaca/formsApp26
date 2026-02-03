@@ -10,8 +10,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideSweetAlert2({
-      fireOnInit: false,
-      dismissOnDestroy: true
-    })
+            // Optional configuration
+            fireOnInit: false,
+            dismissOnDestroy: true,
+        }),
+    
   ]
 };

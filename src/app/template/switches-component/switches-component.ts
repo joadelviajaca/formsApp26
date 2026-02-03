@@ -1,6 +1,6 @@
-import { Component, inject, ViewChild } from '@angular/core';
-import { PersonaS } from '../../interfaces';
+import { Component, inject, ViewChild, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PersonaS } from '../../interfaces';
 import { SwalComponent, SwalDirective } from '@sweetalert2/ngx-sweetalert2';
 import { Router } from '@angular/router';
 
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
   templateUrl: './switches-component.html',
 })
 export class SwitchesComponent {
-
-  @ViewChild('swalSuccess') swalSuccess!: SwalComponent;
-  @ViewChild('confirmDialog') confirmDialog!: SwalComponent;
-
+  
   private router : Router = inject(Router);
+
+  @ViewChild('swalSuccess') swalSucces !: SwalComponent;
+  @ViewChild('confirmDialog') confirmDialog !: SwalComponent;
 
   person: PersonaS = {
     genre: 'F',
@@ -23,13 +23,14 @@ export class SwitchesComponent {
 
   terms: boolean = false;
 
+  
   async submit(){
-    // console.log('Se ha enviado el formulario');
-    const result = await this.confirmDialog.fire();
-    if(!result.isConfirmed) return;
-    this.swalSuccess.fire();
-    this.router.navigateByUrl('/');
+    const answer = await this.confirmDialog.fire();
+    console.log(answer)
+    if (!answer.isConfirmed) return;
+
+    this.swalSucces.fire();
+    this.router.navigateByUrl('/')
 
   }
-
 }

@@ -49,8 +49,9 @@
                 <input class="form-check-input"
                        type="checkbox"
                        id="flexSwitchCheckChecked"
+                       name="notifications"
                        [(ngModel)]="person.notifications"
-                       name="notifications">
+                       >
                 <label class="form-check-label" for="flexSwitchCheckChecked">Quiero recibir notificaciones</label>
             </div>
 
@@ -86,10 +87,10 @@
         </div>
     </div>
 
-    <p> Valid: {{myForm.valid}} </p>
-
-    <swal #swalSuccess title="Éxito!" text="Formulario guardado correctamente!" icon="success"></swal>
-    <swal #confirmDialog title="¿Estás seguro?" text="Se va a enviar el formulario" icon="question" [showCancelButton]="true" confirmButtonText="Sí, enviar" cancelButtonText="Cancelar"></swal>
+   
 
 
 </form>
+
+<swal #swalSuccess title="Éxito!" text="Formulario guardado correctamente!" icon="success"></swal>
+<swal #confirmDialog title="¿Estás seguro?" text="Se va a enviar el formulario" icon="question" [showCancelButton]="true" confirmButtonText="Sí, enviar" cancelButtonText="Cancelar"></swal>
