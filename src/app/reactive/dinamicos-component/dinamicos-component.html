@@ -1,24 +1,56 @@
 <h2>Template: <small> Dinámicos </small></h2>
 <hr>
 
-<form autocomplete="off">
-   
+<form [formGroup]="myForm" (ngSubmit)="submit()" autocomplete="off">
+
     <!-- Nombre -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
-            <input class="form-control"
-                   placeholder="Nombre de la persona">
+            <input class="form-control" placeholder="Nombre de la persona" formControlName="name">
+            @if (isValidField('name')) {
                 <span class="form-text text-danger">
-                   Este campo es obligatorio
-               </span>
+                   {{getFieldError('name')}}
+                </span>
+
+            }
         </div>
+    </div>
+
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+                <input class="form-control" placeholder="Agregar favorito" [formControl]="newFavorite">
+
+                <button class="btn btn-outline-primary" type="button" (click)="add()">
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-9" formArrayName="favorites">
+        @for(favorite of myForm.controls['favorites'].controls; track favorite.value){
+        <div class="input-group mb-1">
+            <input [formControlName]="$index" class="form-control">
+            <button class="btn btn-outline-danger" (click)="onDeleteGame($index)" type="button">
+                Eliminar
+            </button>
+        </div>
+        @if (isValidFieldInArray(favorites, $index)) {
+        <span class="form-text text-danger">
+            {{getArrayFieldError(favorites,$index)}}
+        </span>
+        }
+        }
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <button type="button"
-                    class="btn btn-primary float-end">
+            <button type="submit" class="btn btn-primary float-end">
                 Guardar
             </button>
         </div>
