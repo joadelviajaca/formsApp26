@@ -25,8 +25,8 @@ export class AuthService {
       .subscribe({
         next: response => {
           console.log('Valido')
-          const {id, name, role} = jwtDecode<JWTPayload>(token);
-          this._user.set({id, name , role})
+          const {id, name, role, email} = jwtDecode<JWTPayload>(token);
+          this._user.set({id, name , role, email})
         },
         error: error => {
           localStorage.removeItem('token')
