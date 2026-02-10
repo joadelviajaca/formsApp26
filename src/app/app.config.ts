@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideSweetAlert2 } from '@sweetalert2/ngx-sweetalert2';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
             fireOnInit: false,
             dismissOnDestroy: true,
         }),
+    provideHttpClient()
     
   ]
 };

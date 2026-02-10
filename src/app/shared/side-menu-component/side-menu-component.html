@@ -1,5 +1,9 @@
 <h2>Template</h2>
 <hr>
+@if (user()) {
+
+    <p>{{user()?.name}}</p>
+}
 
 <ul class="list-group">
     @for(item of templateMenu; track item.ruta) {
@@ -31,4 +35,5 @@
     <li class="list-group-item" [routerLink]="[ '/auth/registro']" routerLinkActive="active">
         Registro
     </li>
+    <li class="list-group-item" [routerLink]="[ '/auth/login']" routerLinkActive="active">Login</li>
 </ul>

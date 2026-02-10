@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../auth/services/auth-service';
 
 interface MenuItem {
   texto: string;
@@ -13,6 +14,11 @@ interface MenuItem {
   templateUrl: './side-menu-component.html',
 })
 export class SideMenuComponent {
+
+  authService = inject(AuthService);
+
+  user = this.authService.user;
+
   templateMenu: MenuItem[] = [
     {
       texto: 'Básicos',

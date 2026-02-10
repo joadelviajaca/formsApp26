@@ -30,12 +30,27 @@ export class BasicosComponent {
   getFieldError(field: string): string | null {
     if (!this.myForm.controls[field]) return null
     const errors = this.myForm.controls[field].errors || {}
-    for (const key of Object.keys(errors)) {
+    console.log(errors)
+    for(const key of Object.keys(errors)) {
       switch (key) {
         case 'required':
-          return 'Este campo es requerido'
+          return `El campo ${field} es requerido`;
+
         case 'minlength':
-          return "Debe tener mínimo 3 letras"
+          // Angular devuelve: { requiredLength: X, actualLength: Y }
+          return `Debe tener mínimo ${errors['minlength'].requiredLength} caracteres`;
+
+        case 'maxlength':
+          // Angular devuelve: { requiredLength: X, actualLength: Y }
+          return `Debe tener máximo ${errors['maxlength'].requiredLength} caracteres`;
+
+        case 'min':
+          // Angular devuelve: { min: X, actual: Y }
+          return `El valor mínimo es ${errors['min'].min}`;
+
+        case 'max':
+          // Angular devuelve: { max: X, actual: Y }
+          return `El valor máximo es ${errors['max'].max}`;
         default:
           return null
       }
