@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { ValidatorsService } from '../services/validators-service';
 
 @Component({
   selector: 'app-register',
@@ -10,14 +11,21 @@ import { JsonPipe } from '@angular/common';
 export class Register {
 
   private fb = inject(FormBuilder);
-
+  private validatorsService = inject(ValidatorsService);
+  
 
   myForm: FormGroup = this.fb.group({
-    name: ['', [ Validators.required]],
-    email: ['', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')]],
-    login: ['', [ Validators.required]],
+    name: ['', [ Validators.required, this.validatorsService.noSurname ]],
+    email: ['', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$')], [ this.validatorsService.validateEmail() ]],
+    login: ['', [ Validators.required, this.validatorsService.cantBe('joadelvia') ]],
     password: ['', [ Validators.required]],
     confirmPassword: ['', [ Validators.required]],
+  }, {
+    // 4. Validadores de Formulario (Cross-field)
+    // Se definen en las opciones del grupo, no del control individual
+    validators: [
+      this.validatorsService.camposIguales('password', 'confirmPassword')
+    ]
   })
 
   submit(){
