@@ -2,7 +2,7 @@
 <hr>
 @if (user()) {
 
-    <p>{{user()?.name}}</p>
+    <p>Agente: {{user()?.name}}</p>
 }
 
 <ul class="list-group">
@@ -28,12 +28,28 @@
 
 </ul>
 
-<h2 class="mt-3">Registro</h2>
-<hr>
-<ul class="list-group">
-    
-    <li class="list-group-item" [routerLink]="[ '/auth/register']" routerLinkActive="active">
-        Registro
-    </li>
-    <li class="list-group-item" [routerLink]="[ '/auth/login']" routerLinkActive="active">Login</li>
-</ul>
+@if (user()) {
+    <h2 class="mt-3 text-success">Top Secret</h2>
+    <hr>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success cursor-pointer" [routerLink]="['/missions']" routerLinkActive="active">
+            📂 Misiones Activas
+        </li>
+
+        <li class="list-group-item list-group-item-danger cursor-pointer mt-2" (click)="logout()">
+            🚪 Cerrar Sesión
+        </li>
+    </ul>
+} @else {
+    <h2 class="mt-3">Acceso</h2>
+    <hr>
+    <ul class="list-group">
+        <li class="list-group-item" [routerLink]="[ '/auth/register']" routerLinkActive="active">
+            Registro
+        </li>
+        <li class="list-group-item" [routerLink]="[ '/auth/login']" routerLinkActive="active">
+            Login
+        </li>
+    </ul>
+}
+

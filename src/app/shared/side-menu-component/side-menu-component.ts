@@ -49,4 +49,8 @@ export class SideMenuComponent {
     },
   ];
 
+  logout(){
+    this.authService.logout();
+  }
+
 }
